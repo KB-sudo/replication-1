@@ -1,4 +1,4 @@
--- 1. Создаем пользователя, которого будет подключать к нам master-1
+
 CREATE USER 'repl_user'@'%' IDENTIFIED WITH mysql_native_password BY 'pass';
 GRANT REPLICATION SLAVE ON *.* TO 'repl_user'@'%';
 FLUSH PRIVILEGES;
