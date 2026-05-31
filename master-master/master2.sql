@@ -1,0 +1,17 @@
+-- 1. Создаем пользователя, которого будет подключать к нам master-1
+CREATE USER 'repl_user'@'%' IDENTIFIED WITH mysql_native_password BY 'pass';
+GRANT REPLICATION SLAVE ON *.* TO 'repl_user'@'%';
+FLUSH PRIVILEGES;
+
+SELECT SLEEP(15);
+
+
+CHANGE REPLICATION SOURCE TO
+  SOURCE_HOST='master-1',
+  SOURCE_USER='repl_user',
+  SOURCE_PASSWORD='pass',
+  SOURCE_SSL=0,
+  GET_SOURCE_PUBLIC_KEY=1,
+  SOURCE_AUTO_POSITION=1;
+
+START REPLICA;
